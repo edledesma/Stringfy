@@ -18,7 +18,7 @@
 ## __Notice__ 
 
 
-The exes are compiled using the PyInstaller package, because of this they may be flagged with false positive by antiviruses.
+The exes are compiled using the PyInstaller package, this can cause some antiviruses to trigger a false positive detection.
 The installer/setup version is recommended.
 
 ## __Download__
