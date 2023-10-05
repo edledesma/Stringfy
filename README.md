@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://github.com/edledesma/Python/blob/main/Stringfy/media/stringfy.png">
+<img src="https://github.com/edledesma/Stringfy/blob/main/media/stringfy.webp">
 </div>
 
 
@@ -32,6 +32,6 @@ The exe are compiled using the PyInstaller package, because of this it may be de
 <summary>How to download</summary>
 
 
-<img src="https://github.com/edledesma/Python/blob/main/Stringfy/media/howto.gif">
+<img src="https://github.com/edledesma/Stringfy/blob/main/media/howto.gif">
 
 </details>
