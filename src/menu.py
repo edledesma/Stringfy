@@ -14,11 +14,13 @@ from services import (
     clear_text,
     copy_all,
     capture_screen,
+    check_languages,
 )
 
 current_directory = os.getcwd()
-RELATIVE_ICO_DIRECTORY ="media/icon.ico"
-absolute_directory= os.path.join(current_directory,RELATIVE_ICO_DIRECTORY)
+RELATIVE_ICO_DIRECTORY = "media/icon.ico"
+absolute_directory = os.path.join(current_directory, RELATIVE_ICO_DIRECTORY)
+
 
 def menu_gui():
     """
@@ -127,15 +129,24 @@ def menu_elements(root):
     )
     btn_copy.pack(padx=2, pady=4, ipadx=10, expand=True, fill=ttkb.BOTH, side=ttkb.LEFT)
 
-    # Text display frame#
+    # Current Language Display
+
+    language_display = ttkb.Label(frame, text="Language: English")
+    language_display.pack()
+
+    # Text display frame
 
     scroll_bar = ttkb.Scrollbar(frame, orient="vertical")
     scroll_bar.pack(side="right", fill="y")
-
     text_display = ttkb.Text(
         frame, height=500, width=300, yscrollcommand=scroll_bar.set
     )
     text_display.insert(ttkb.END, "")
     text_display.pack(side="left")
+
+    # Creats the langue menu and calls an option creation function
+    language_menu = ttkb.Menu(my_menu, tearoff="off")
+    my_menu.add_cascade(label="OCR Language", menu=language_menu)
+    check_languages(language_menu, language_display)
 
     root.mainloop()
