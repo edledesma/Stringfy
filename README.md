@@ -21,7 +21,7 @@
 The exes are compiled using the PyInstaller package, this can cause some antiviruses to trigger a false positive detection.
 The installer/setup version is recommended.
 
-- Additional data models for different langauges can be downloaded [here](https://github.com/tesseract-ocr/tessdata). Download them and place them inside the tessdata folder located in the same directory that the tesseract.exe (The default location is C:\Program Files\Tesseract-OCR)
+- Additional data models for different langauges can be downloaded [here](https://github.com/tesseract-ocr/tessdata). Download them and place them inside the tessdata folder located in the same directory that the tesseract.exe (The default location is C:\Program Files\Tesseract-OCR).
 
 ## __Download__
 
