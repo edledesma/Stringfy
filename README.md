@@ -25,7 +25,7 @@ The installer/setup version is recommended.
 
 ## __Download__
 
-- [Installer - Recommended](https://github.com/edledesma/Stringfy/releases/tag/Stringfy)
+- [Installer - Recommended](https://github.com/edledesma/Stringfy/releases)
 
 - [ZipFile/Folder](https://github.com/edledesma/Stringfy/blob/main/PACKAGES/Stringfy.zip)
 
