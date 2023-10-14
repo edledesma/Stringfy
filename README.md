@@ -21,6 +21,8 @@
 The exes are compiled using the PyInstaller package, this can cause some antiviruses to trigger a false positive detection.
 The installer/setup version is recommended.
 
+- Additional data models for different langauges can be downloaded [here](https://github.com/tesseract-ocr/tessdata). Download them and place them inside the tessdata folder located in the same directory that the tesseract.exe (The default location is C:\Program Files\Tesseract-OCR)
+
 ## __Download__
 
 - [Installer - Recommended](https://github.com/edledesma/Stringfy/releases/tag/Stringy)
@@ -31,7 +33,7 @@ The installer/setup version is recommended.
 
 - [Source/Code](https://github.com/edledesma/Python/tree/main/Stringfy/src/)
 
-- [Additional data models for different langauges can be downloaded here](https://github.com/tesseract-ocr/tessdata)
+
 
 <details>
 
