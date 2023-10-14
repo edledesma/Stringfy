@@ -7,19 +7,22 @@ import sys
 import time
 import functools
 from tkinter import filedialog
+import configparser
 import ttkbootstrap as ttkb
 from PIL import Image, ImageGrab, UnidentifiedImageError
 import pytesseract
 from pytesseract import TesseractError
 
-class Language:
+
+class DefaultValues:
     """
     Class for the language entity - Done to avoid a global variable
     """
 
-    def __init__(self, language, long_name):
-        self.language = language
-        self.long_name = long_name
+    def __init__(self):
+        self.language = config.get("Settings", "lang")
+        self.long_name = config.get("Settings", "long_name")
+        self.theme = config.get("Settings", "theme")
 
     def __str__(self):
         return self.language
@@ -29,10 +32,26 @@ class Language:
         return self.long_name
 
 
+# Reads the config.ini or creates it it doesn't exist
+
+CONFIG_FILE = "config.ini"
+if not os.path.exists(CONFIG_FILE):
+    config = configparser.ConfigParser()
+    # Set default values
+    config["Settings"] = {"theme": "darkly", "lang": "eng", "long_name": "English"}
+    # Write the configuration to the file
+    with open(CONFIG_FILE, "w", encoding="UTF-8") as configfile:
+        config.write(configfile)
+
+# Read values from the configuration file
+config = configparser.ConfigParser()
+config.read(CONFIG_FILE)
+
+#################################
+
 # Setting the default language
 
-LANG = Language("eng", "English")
-
+LANG = DefaultValues()
 # Checks for the Tesseract exe, if not found opens a file window
 
 TESSERACT_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -57,6 +76,7 @@ LOCALES_PATH = LOCALES_PATH[0] + "tessdata"
 FILES = os.listdir(LOCALES_PATH)
 
 # ============== LANGUAGE =================
+
 
 def check_languages(language_menu, language_display):
     """
@@ -85,6 +105,7 @@ def set_language(language, long_name, language_display):
     LANG.long_name = long_name
     language_display.config(text=f"Language: {LANG.long_name}")
 
+
 # ============== INTERFACE =================
 
 
@@ -97,6 +118,7 @@ def dark_mode(root):
     Returns:
         None
     """
+    LANG.theme = "darkly"
     root.style.theme_use("darkly")
 
 
@@ -109,9 +131,12 @@ def light_mode(root):
     Returns:
         None
     """
+    LANG.theme = "pulse"
     root.style.theme_use("pulse")
 
+
 # ============== CONVERSION =================
+
 
 def convert_image_to_text(image_path):
     """
@@ -192,6 +217,7 @@ def capture_screen(text_display, root):
     time.sleep(1)
     root.state(newstate="normal")
 
+
 def save_as(text_display):
     """
     Save the contents of the text_display to a file.
@@ -209,7 +235,22 @@ def save_as(text_display):
     with open(file_path, "w", encoding="utf-8") as file:
         file.write(text)
 
+
 # ============== UTILITY =================
+
+
+def on_closing(root):
+    """Closes the application and saves changes if there were any"""
+    config_b = configparser.ConfigParser()
+    config_b["Settings"] = {
+        "theme": f"{LANG.theme}",
+        "lang": f"{LANG.language}",
+        "long_name": f"{LANG.long_name}",
+    }
+    with open(CONFIG_FILE, "w", encoding="UTF-8") as config_file_b:
+        config_b.write(config_file_b)
+    root.destroy()
+
 
 def clear_text(text_display):
     """
@@ -267,6 +308,7 @@ def update_text(text_display, root, text):
     text_display.bind(
         "<Button-3>", lambda event: context_menu.post(event.x_root, event.y_root)
     )
+
 
 def on_enter(text_display, root):
     """

@@ -15,13 +15,18 @@ from services import (
     copy_all,
     capture_screen,
     check_languages,
+    on_closing,
+    LANG,
 )
 
 current_directory = os.getcwd()
 RELATIVE_ICO_DIRECTORY = "media/icon.ico"
 absolute_directory = os.path.join(current_directory, RELATIVE_ICO_DIRECTORY)
 
+# ======== AVERRIGUAR COMO GUARDAR EN DISCO =============
 
+
+# ===========================================================
 def menu_gui():
     """
     Create the menu for the tkinter application.
@@ -29,7 +34,7 @@ def menu_gui():
         None
     """
     root = ttkb.Window(
-        title="Stringfy", themename="pulse", minsize=(450, 250), size=(900, 500)
+        title="Stringfy", themename=f"{LANG.theme}", minsize=(450, 250), size=(900, 500)
     )
     try:
         root.iconbitmap(absolute_directory)
@@ -131,7 +136,7 @@ def menu_elements(root):
 
     # Current Language Display
 
-    language_display = ttkb.Label(frame, text="Language: English")
+    language_display = ttkb.Label(frame, text=f"Language: {LANG.long_name}")
     language_display.pack()
 
     # Text display frame
@@ -149,4 +154,5 @@ def menu_elements(root):
     my_menu.add_cascade(label="OCR Language", menu=language_menu)
     check_languages(language_menu, language_display)
 
+    root.protocol("WM_DELETE_WINDOW", lambda: on_closing(root))
     root.mainloop()

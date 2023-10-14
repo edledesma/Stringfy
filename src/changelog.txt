@@ -1,0 +1,8 @@
+[1.0]
+Release
+
+[1.1] 
+Added support for differet output languages
+
+[1.2]
+Added persistency for options
