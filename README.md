@@ -29,7 +29,7 @@ The installer/setup version is recommended.
 
 - [ZipFile/Folder](https://github.com/edledesma/Stringfy/blob/main/PACKAGES/Stringfy.zip)
 
-- [.exe/One File](https://github.com/edledesma/Stringfy/blob/main/PACKAGES/Stringy.exe)
+- [.exe/One File](https://github.com/edledesma/Stringfy/blob/main/PACKAGES/Stringfy.exe)
 
 - [Source/Code](https://github.com/edledesma/Python/tree/main/Stringfy/src/)
 
