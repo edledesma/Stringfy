@@ -31,6 +31,8 @@ The installer/setup version is recommended.
 
 - [Source/Code](https://github.com/edledesma/Python/tree/main/Stringfy/src/)
 
+- [Additional data models for different langauges can be downloaded here](https://github.com/tesseract-ocr/tessdata)
+
 <details>
 
 <summary>How to download</summary>
