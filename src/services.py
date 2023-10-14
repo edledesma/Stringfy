@@ -7,7 +7,7 @@ import sys
 import time
 import functools
 from tkinter import filedialog
-import configparser
+from configparser import ConfigParser
 import ttkbootstrap as ttkb
 from PIL import Image, ImageGrab, UnidentifiedImageError
 import pytesseract
@@ -20,9 +20,14 @@ class DefaultValues:
     """
 
     def __init__(self):
-        self.language = config.get("Settings", "lang")
-        self.long_name = config.get("Settings", "long_name")
-        self.theme = config.get("Settings", "theme")
+        try:
+            self.language = config.get("Settings", "lang")
+            self.long_name = config.get("Settings", "long_name")
+            self.theme = config.get("Settings", "theme")
+        except config.Error: #pylint: disable=no-member
+            self.language = "eng"
+            self.long_name = "English"
+            self.theme = "pulse"
 
     def __str__(self):
         return self.language
@@ -32,26 +37,6 @@ class DefaultValues:
         return self.long_name
 
 
-# Reads the config.ini or creates it it doesn't exist
-
-CONFIG_FILE = "config.ini"
-if not os.path.exists(CONFIG_FILE):
-    config = configparser.ConfigParser()
-    # Set default values
-    config["Settings"] = {"theme": "darkly", "lang": "eng", "long_name": "English"}
-    # Write the configuration to the file
-    with open(CONFIG_FILE, "w", encoding="UTF-8") as configfile:
-        config.write(configfile)
-
-# Read values from the configuration file
-config = configparser.ConfigParser()
-config.read(CONFIG_FILE)
-
-#################################
-
-# Setting the default language
-
-LANG = DefaultValues()
 # Checks for the Tesseract exe, if not found opens a file window
 
 TESSERACT_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -74,6 +59,27 @@ if not os.path.exists(TESSERACT_PATH):
 LOCALES_PATH = TESSERACT_PATH.split("tesseract.exe")
 LOCALES_PATH = LOCALES_PATH[0] + "tessdata"
 FILES = os.listdir(LOCALES_PATH)
+
+# Reads the config.ini or creates it it doesn't exist
+
+CONFIG_FILE = "config.ini"
+config = ConfigParser()
+if not os.path.exists(CONFIG_FILE):
+    # Set default values
+    config["Settings"] = {"theme": "pulse", "lang": "eng", "long_name": "English"}
+    # Write the configuration to the file
+    try:
+        with open(CONFIG_FILE, "w", encoding="UTF-8") as configfile:
+            config.write(configfile)
+    except IOError:
+        pass
+
+# Read values from the configuration file
+try:
+    config.read(CONFIG_FILE)
+except config.Error: #pylint: disable=no-member
+    print("Error in config file")
+LANG = DefaultValues()
 
 # ============== LANGUAGE =================
 
@@ -241,14 +247,17 @@ def save_as(text_display):
 
 def on_closing(root):
     """Closes the application and saves changes if there were any"""
-    config_b = configparser.ConfigParser()
-    config_b["Settings"] = {
-        "theme": f"{LANG.theme}",
-        "lang": f"{LANG.language}",
-        "long_name": f"{LANG.long_name}",
-    }
-    with open(CONFIG_FILE, "w", encoding="UTF-8") as config_file_b:
-        config_b.write(config_file_b)
+    try:
+        config["Settings"] = {
+            "theme": f"{LANG.theme}",
+            "lang": f"{LANG.language}",
+            "long_name": f"{LANG.long_name}",
+        }
+
+        with open(CONFIG_FILE, "w", encoding="UTF-8") as config_file_b:
+            config.write(config_file_b)
+    except config.Error: #pylint: disable=no-member
+        pass
     root.destroy()
 
 

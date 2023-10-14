@@ -29,7 +29,7 @@ absolute_directory = os.path.join(current_directory, RELATIVE_ICO_DIRECTORY)
 # ===========================================================
 def menu_gui():
     """
-    Create the menu for the tkinter application.
+    Creates the application root frame.
     Returns:
         None
     """
