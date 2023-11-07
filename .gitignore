@@ -2,3 +2,7 @@
 __pycache__
 /Pyinstaller commands.txt
 /INSTALLER STUFF
+/src/config.ini
+INSTALLER STUFF
+src/config.ini
+src/Stringfy.spec
